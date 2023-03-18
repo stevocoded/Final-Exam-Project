@@ -7,10 +7,10 @@ pipeline {
     }
 
     stages {
-       stage("Create Prometheus") {
+      stage("Create Nginx-controller") {
             steps {
                 script {
-                    dir('Prometheus-Helm') {
+                    dir('Nginx-Controller') {
                        sh "aws eks --region eu-west-2 update-kubeconfig --name stevo"
                         sh "terraform init"
                         sh "terraform apply -auto-approve"
@@ -19,10 +19,10 @@ pipeline {
             }
         }
 
-        stage("Create Nginx-conroller") {
+       stage("Create Prometheus") {
             steps {
                 script {
-                    dir('Nginx-Controller') {
+                    dir('Prometheus-Helm') {
                         sh "terraform init"
                         sh "terraform apply -auto-approve"
                     }
