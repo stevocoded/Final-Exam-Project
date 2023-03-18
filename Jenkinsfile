@@ -7,11 +7,33 @@ pipeline {
     }
 
     stages {
+       stage("Create Prometheus") {
+            steps {
+                script {
+                    dir('Prometheus-Helm') {
+                       sh "aws eks --region eu-west-2 update-kubeconfig --name stevo"
+                        sh "terraform init"
+                        sh "terraform apply -auto-approve"
+                    }
+                }
+            }
+        }
+
+        stage("Create Nginx-conroller") {
+            steps {
+                script {
+                    dir('Nginx-Controller') {
+                        sh "terraform init"
+                        sh "terraform apply -auto-approve"
+                    }
+                }
+            }
+        }
+
         stage("Deploy Voting App to EKS") {
             steps {
                 script {
                     dir('Vote-App') {
-                       sh "aws eks --region eu-west-2 update-kubeconfig --name stevo"
                         sh "terraform init"
                         sh "terraform apply -auto-approve"
                     }
@@ -42,25 +64,3 @@ pipeline {
         }
     }
 }
-
-       stage("Create Prometheus") {
-            steps {
-                script {
-                    dir('Prometheus-Helm') {
-                        sh "terraform init"
-                        sh "terraform apply -auto-approve"
-                    }
-                }
-            }
-        }
-
-        stage("Create Nginx-conroller") {
-            steps {
-                script {
-                    dir('Nginx-Controller') {
-                        sh "terraform init"
-                        sh "terraform apply -auto-approve"
-                    }
-                }
-            }
-        }
