@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  ingressClassName: external-nginx
+  rules:
+  - host: grafana.stevocoded.me
+    http:
+      paths:
+      - path: /
+        pathType: prefix
+        backend:
+          service:
+            name:
+            port:
+              number:
