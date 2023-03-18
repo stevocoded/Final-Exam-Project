@@ -25,10 +25,8 @@ data "aws_eks_cluster_auth" "stevo_auth" {
   name = "stevo_auth"
 }
 
-
 provider "aws" {
-  region     = "eu-west2"
-
+  region = "eu-west2"
 }
 
 provider "helm" {
