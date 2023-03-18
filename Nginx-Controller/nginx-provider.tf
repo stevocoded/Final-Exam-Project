@@ -17,7 +17,6 @@ terraform {
   }
 }
 
-
 data "aws_eks_cluster" "stevo" {
   name = "stevo"
 }
@@ -25,9 +24,8 @@ data "aws_eks_cluster_auth" "stevo_auth" {
   name = "stevo_auth"
 }
 
-
 provider "aws" {
-  region     = "eu-west-2"
+  region = "eu-west-2"
 
 }
 
