@@ -12,7 +12,7 @@ pipeline {
                 script {
                     dir('Nginx-Controller') {
                        sh "aws eks --region eu-west-2 update-kubeconfig --name stevo"
-                        sh "terraform init"
+                        sh "terraform init && terraform plan"
                         sh "terraform apply -auto-approve"
                     }
                 }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     dir('Prometheus-Helm') {
-                        sh "terraform init"
+                        sh "terraform init && terraform plan"
                         sh "terraform apply -auto-approve"
                     }
                 }
