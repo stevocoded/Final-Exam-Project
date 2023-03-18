@@ -30,29 +30,7 @@ pipeline {
             }
         }
          
-        stage("Create Nginx-conroller") {
-            steps {
-                script {
-                    dir('Nginx-Controller') {
-                        sh "terraform init"
-                        sh "terraform apply -auto-approve"
-                    }
-                }
-            }
-        }
-
-        stage("Create Prometheus") {
-            steps {
-                script {
-                    dir('Prometheus-Helm') {
-                        sh "terraform init"
-                        sh "terraform apply -auto-approve"
-                    }
-                }
-            }
-        }
-
-        stage("Deploy Ingress rule to EKS") {
+       stage("Deploy Ingress rule to EKS") {
             steps {
                 script {
                     dir('Ingress-Rule') {
@@ -64,3 +42,25 @@ pipeline {
         }
     }
 }
+
+       stage("Create Prometheus") {
+            steps {
+                script {
+                    dir('Prometheus-Helm') {
+                        sh "terraform init"
+                        sh "terraform apply -auto-approve"
+                    }
+                }
+            }
+        }
+
+        stage("Create Nginx-conroller") {
+            steps {
+                script {
+                    dir('Nginx-Controller') {
+                        sh "terraform init"
+                        sh "terraform apply -auto-approve"
+                    }
+                }
+            }
+        }
