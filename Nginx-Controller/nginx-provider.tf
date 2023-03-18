@@ -27,7 +27,7 @@ data "aws_eks_cluster_auth" "stevo_auth" {
 
 
 provider "aws" {
-  region     = var.region
+  region     = "eu-west-2"
 
 }
 
