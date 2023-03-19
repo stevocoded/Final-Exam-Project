@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage("Deploy Voting App to EKS") {
             steps {
-                dir('Vote-App') {
+                dir('/Project/Vote-App') {
                     sh "aws eks --region ${env.AWS_DEFAULT_REGION} update-kubeconfig --name stevo"
                     sh "terraform init && terraform plan"
                     sh "terraform apply -auto-approve"
@@ -17,7 +17,7 @@ pipeline {
         }
         stage("Deploy Microservice to EKS") {
             steps {
-                dir('Microservice') {
+                dir('/Project/Microservice') {
                     sh "aws eks --region ${env.AWS_DEFAULT_REGION} update-kubeconfig --name stevo"
                     sh "terraform init"
                     sh "terraform apply -auto-approve"
