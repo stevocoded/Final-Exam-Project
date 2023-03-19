@@ -9,10 +9,7 @@ pipeline {
         stage("Deploy Voting App to EKS") {
             steps {
                 dir('Vote-App') {
-                    sh "pwd"
-                    sh "aws eks --region ${env.AWS_DEFAULT_REGION} update-kubeconfig --name stevo"
-                    sh "terraform init && terraform plan"
-                    sh "terraform apply -auto-approve"
+                    sh "terraform destroy -auto-approve"
                 }
             }
         }
@@ -20,9 +17,7 @@ pipeline {
         stage("Deploy Microservice to EKS") {
             steps {
                 dir('Microservice') {
-                    sh "aws eks --region ${env.AWS_DEFAULT_REGION} update-kubeconfig --name stevo"
-                    sh "terraform init"
-                    sh "terraform apply -auto-approve"
+                    sh "terraform destroy -auto-approve"
                 }
             }
         }
